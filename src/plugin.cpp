@@ -254,3 +254,50 @@ const char* ts3plugin_displayKeyText(const char* keyIdentifier) {
 const char* ts3plugin_keyPrefix() {
 	return NULL;
 }
+
+int ts3plugin_onTextMessageEvent(uint64 serverConnectionHandlerID, anyID targetMode, anyID toID, anyID fromID, const char * fromName, const char * fromUniqueIdentifier, const char * message, int ffIgnored)
+{
+	anyID mClientID = 0;
+	ts3Functions.getClientID(serverConnectionHandlerID, &mClientID);
+	if (fromID != mClientID) //ReCuRSiOn
+	{
+		std::string input = message;
+		SpongeMockify(input, true);
+
+		switch (targetMode)
+		{
+		case PLUGIN_MESSAGE_TARGET_SERVER:
+			ts3Functions.requestSendServerTextMsg(serverConnectionHandlerID, input.c_str(), NULL);
+			break;
+		case PLUGIN_MESSAGE_TARGET_PRIVATE:
+			if (fromID > 0)
+				ts3Functions.requestSendPrivateTextMsg(serverConnectionHandlerID, input.c_str(), fromID, NULL);
+			break;
+		case PLUGIN_MESSAGE_TARGET_CHANNEL:
+			ts3Functions.requestSendChannelTextMsg(serverConnectionHandlerID, input.c_str(), 0, NULL);
+			break;
+		default:
+			break;
+		}
+	}
+
+	return 0;
+}
+
+int ts3plugin_onClientPokeEvent(uint64 serverConnectionHandlerID, anyID fromClientID, const char* pokerName, const char* pokerUniqueIdentity, const char* message, int ffIgnored)
+{
+	anyID mClientID = 0;
+	ts3Functions.getClientID(serverConnectionHandlerID, &mClientID);
+	if (fromClientID != mClientID)
+	{
+		std::string input = message;
+
+		if (input.length() > 0) //message has got text
+		{
+			SpongeMockify(input, true);
+			ts3Functions.requestClientPoke(serverConnectionHandlerID, fromClientID, input.c_str(), NULL);
+		}
+	}
+
+	return 0;
+}

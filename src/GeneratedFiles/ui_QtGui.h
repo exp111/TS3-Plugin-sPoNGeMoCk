@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox.h>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
@@ -26,12 +27,13 @@ public:
     QPushButton *mockifyButton;
     QLineEdit *inputLine;
     QLineEdit *outputLine;
+    QCheckBox *mockifyIncomingCheckBox;
 
     void setupUi(QWidget *QtGui)
     {
         if (QtGui->objectName().isEmpty())
             QtGui->setObjectName(QStringLiteral("QtGui"));
-        QtGui->resize(339, 102);
+        QtGui->resize(339, 124);
         mockifyButton = new QPushButton(QtGui);
         mockifyButton->setObjectName(QStringLiteral("mockifyButton"));
         mockifyButton->setGeometry(QRect(110, 40, 121, 23));
@@ -43,9 +45,13 @@ public:
         outputLine->setObjectName(QStringLiteral("outputLine"));
         outputLine->setGeometry(QRect(10, 70, 321, 20));
         outputLine->setReadOnly(false);
+        mockifyIncomingCheckBox = new QCheckBox(QtGui);
+        mockifyIncomingCheckBox->setObjectName(QStringLiteral("mockifyIncomingCheckBox"));
+        mockifyIncomingCheckBox->setGeometry(QRect(10, 100, 321, 20));
 
         retranslateUi(QtGui);
         QObject::connect(mockifyButton, SIGNAL(clicked()), QtGui, SLOT(mockify()));
+        QObject::connect(mockifyIncomingCheckBox, SIGNAL(clicked(bool)), QtGui, SLOT(setMockifyIncoming(bool)));
 
         QMetaObject::connectSlotsByName(QtGui);
     } // setupUi
@@ -54,6 +60,7 @@ public:
     {
         QtGui->setWindowTitle(QApplication::translate("QtGui", "Sponge Mockify", Q_NULLPTR));
         mockifyButton->setText(QApplication::translate("QtGui", "Sponge Mockify", Q_NULLPTR));
+        mockifyIncomingCheckBox->setText(QApplication::translate("QtGui", "Mockify all incoming messages", Q_NULLPTR));
     } // retranslateUi
 
 };

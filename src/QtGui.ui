@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>339</width>
-    <height>102</height>
+    <height>124</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,6 +52,19 @@
     <bool>false</bool>
    </property>
   </widget>
+  <widget class="QCheckBox" name="mockifyIncomingCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>321</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Mockify all incoming messages</string>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -72,8 +85,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>mockifyIncomingCheckBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>QtGui</receiver>
+   <slot>setMockifyIncoming(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>170</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>169</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>mockify()</slot>
+  <slot>setMockifyIncoming(bool)</slot>
  </slots>
 </ui>

@@ -13,6 +13,7 @@ public:
 	~QtGui();
 public slots:
 	void mockify();
+	void setMockifyIncoming(bool value);
 private:
 	Ui::QtGui ui;
 };

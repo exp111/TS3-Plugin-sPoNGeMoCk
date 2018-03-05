@@ -1,15 +1,22 @@
 #include "QtGui.h"
 
 #include "spongeMockify.h"
+#include "config.h"
 
 QtGui::QtGui(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	ui.mockifyIncomingCheckBox->setChecked(config->mockifyIncoming);
 }
 
 QtGui::~QtGui()
 {
+}
+
+void QtGui::setMockifyIncoming(bool value)
+{
+	config->mockifyIncoming = value;
 }
 
 void QtGui::mockify()
