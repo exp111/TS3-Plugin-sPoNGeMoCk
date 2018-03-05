@@ -1,4 +1,4 @@
 #pragma once
 #include <string>
 
-void SpongeMockify(std::string &text);
+void SpongeMockify(std::string &text, bool addImageURL = false);

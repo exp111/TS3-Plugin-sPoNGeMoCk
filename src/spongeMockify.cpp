@@ -44,7 +44,7 @@ void decideCase(char &c, char prev, char prev2)
 	return;
 }
 
-void SpongeMockify(std::string &text)
+void SpongeMockify(std::string &text, bool addImageURL)
 {
 	std::string buffer = text;
 
@@ -67,5 +67,6 @@ void SpongeMockify(std::string &text)
 		prevLetter = c;
 		buffer[i] = c;
 	}
-	text = buffer;
+
+	text = addImageURL ? "[URL=https://i.imgur.com/IzzwwKu.jpg]" + buffer + "[/URL]" : buffer;
 }

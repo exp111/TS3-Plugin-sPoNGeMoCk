@@ -225,14 +225,14 @@ int ts3plugin_processCommand(uint64 serverConnectionHandlerID, const char* comma
 		if (firstWord == "channel")
 		{
 			rest = std::string(input.begin() + findSpace + 1, input.end());
-			SpongeMockify(rest);
+			SpongeMockify(rest, true);
 			ts3Functions.requestSendChannelTextMsg(serverConnectionHandlerID, rest.c_str(), 0, NULL);
 			return 0;
 		}
 		else if (firstWord == "server")
 		{
 			rest = std::string(input.begin() + findSpace + 1, input.end());
-			SpongeMockify(rest);
+			SpongeMockify(rest, true);
 			ts3Functions.requestSendServerTextMsg(serverConnectionHandlerID, rest.c_str(), NULL);
 			return 0;
 		}
