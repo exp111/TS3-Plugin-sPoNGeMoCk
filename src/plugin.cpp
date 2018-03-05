@@ -258,7 +258,7 @@ const char* ts3plugin_keyPrefix() {
 
 int ts3plugin_onTextMessageEvent(uint64 serverConnectionHandlerID, anyID targetMode, anyID toID, anyID fromID, const char * fromName, const char * fromUniqueIdentifier, const char * message, int ffIgnored)
 {
-	if (config->mockifyIncoming)
+	if (!config->mockifyIncoming)
 		return 0;
 
 	anyID mClientID = 0;
@@ -290,7 +290,7 @@ int ts3plugin_onTextMessageEvent(uint64 serverConnectionHandlerID, anyID targetM
 
 int ts3plugin_onClientPokeEvent(uint64 serverConnectionHandlerID, anyID fromClientID, const char* pokerName, const char* pokerUniqueIdentity, const char* message, int ffIgnored)
 {
-	if (config->mockifyIncoming)
+	if (!config->mockifyIncoming)
 		return 0;
 
 	anyID mClientID = 0;
